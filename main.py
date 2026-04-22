@@ -11,12 +11,9 @@ BOT_TOKEN = "8771131700:AAEauoHEPmXfU0nxR5NaAl1gE3MXJxaIdWQ"
 text4 = "🔴 https://docs.google.com/forms/d/e/1FAIpQLSdLCYNJj8xVunkZKKnMeJkKUG4k1nHYEo8J1l9qHoDX18JO3g/viewform?usp=dialog 🔴"
 
 # ССЫЛКИ НА ФОТО (ЗАМЕНИТЕ НА СВОИ)
-PHOTO_BUY_PASS = "https://kappa.lol/SZivBN"  # Ссылка на фото для покупки проходки
-PHOTO_SUBMIT_REQUEST = "https://kappa.lol/CqVnrk"  # Ссылка на фото для заявки
-
-# ИЛИ для локальных файлов:
-# PHOTO_BUY_PASS = FSInputFile("images/donation.jpg")
-# PHOTO_SUBMIT_REQUEST = FSInputFile("images/form.jpg")
+PHOTO_START = "https://kappa.lol/v03Ziu"  # Фото для команды /start
+PHOTO_BUY_PASS = "https://kappa.lol/SZivBN"  # Фото для покупки проходки
+PHOTO_SUBMIT_REQUEST = "https://kappa.lol/CqVnrk"  # Фото для заявки
 
 # ========== ЛОГИРОВАНИЕ ==========
 logging.basicConfig(level=logging.INFO)
@@ -34,11 +31,12 @@ def main_menu():
 
 # ========== ОБРАБОТЧИКИ ==========
 
-# Старт
+# Старт с фото
 @dp.message(Command("start"))
 async def cmd_start(message: Message):
-    await message.answer(
-        "👋 Добро пожаловать!\nВыберите действие:",
+    await message.answer_photo(
+        photo=PHOTO_START,  # Отправляем фото
+        caption="👋 Добро пожаловать!\nВыберите действие:",
         reply_markup=main_menu()
     )
 
@@ -47,9 +45,8 @@ async def cmd_start(message: Message):
 async def buy_pass(callback: CallbackQuery):
     await callback.answer()
     
-    # Отправляем фото с подписью
     await callback.message.answer_photo(
-        photo=PHOTO_BUY_PASS,  # Ссылка на фото
+        photo=PHOTO_BUY_PASS,
         caption="🔴 https://www.donationalerts.com/r/slimehook 🔴"
     )
 
@@ -58,9 +55,8 @@ async def buy_pass(callback: CallbackQuery):
 async def submit_request(callback: CallbackQuery):
     await callback.answer()
     
-    # Отправляем фото с подписью
     await callback.message.answer_photo(
-        photo=PHOTO_SUBMIT_REQUEST,  # Ссылка на фото
+        photo=PHOTO_SUBMIT_REQUEST,
         caption=text4
     )
 
