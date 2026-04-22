@@ -10,7 +10,7 @@ BOT_TOKEN = "8771131700:AAEauoHEPmXfU0nxR5NaAl1gE3MXJxaIdWQ"
 
 # Текст для кнопки "Подать заявку"
 text4 = """
-!
+🔴 https://docs.google.com/forms/d/e/1FAIpQLSdLCYNJj8xVunkZKKnMeJkKUG4k1nHYEo8J1l9qHoDX18JO3g/viewform?usp=dialog 🔴
 """
 
 # ========== ЛОГИРОВАНИЕ ==========
@@ -46,6 +46,7 @@ async def buy_pass(callback: CallbackQuery):
     await callback.answer()
     await callback.message.answer(
         "🔴 https://www.donationalerts.com/r/slimehook 🔴\n\n",
+        
         parse_mode="Markdown"
     )
 
