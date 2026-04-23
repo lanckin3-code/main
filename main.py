@@ -11,7 +11,7 @@ BOT_TOKEN = "8771131700:AAEauoHEPmXfU0nxR5NaAl1gE3MXJxaIdWQ"
 PHOTO_START = "https://kappa.lol/v03Ziu"           # Фото для команды /start
 PHOTO_BUY_PASS = "https://kappa.lol/SZivBN"        # Фото для покупки проходки
 PHOTO_SUBMIT_REQUEST = "https://kappa.lol/CqVnrk"  # Фото для заявки
-PHOTO_BUILD = "https://kappa.lol/ваша_ссылка"      # 🆕 Фото для сборки (ЗАМЕНИТЕ!)
+PHOTO_BUILD = "https://kappa.lol/v03Ziu"      # 🆕 Фото для сборки (ЗАМЕНИТЕ!)
 
 # Текст для сообщений
 TEXT_BUY_PASS = "🔴 https://www.donationalerts.com/r/slimehook 🔴"
