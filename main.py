@@ -29,13 +29,18 @@ def main_menu():
         [InlineKeyboardButton(text="📝 Подать заявку", callback_data="submit_request")]
     ])
 
+def back_menu():
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="👈 Назад", callback_data="back_to_main")]
+    ])
+
 # ========== ОБРАБОТЧИКИ ==========
 
 # Старт с фото
 @dp.message(Command("start"))
 async def cmd_start(message: Message):
     await message.answer_photo(
-        photo=PHOTO_START,  # Отправляем фото
+        photo=PHOTO_START,
         caption="👋 Добро пожаловать!\nВыберите действие:",
         reply_markup=main_menu()
     )
@@ -43,22 +48,44 @@ async def cmd_start(message: Message):
 # Обработка нажатия на "Купить проходку" с фото
 @dp.callback_query(F.data == "buy_pass")
 async def buy_pass(callback: CallbackQuery):
-    await callback.answer()
+    # Удаляем предыдущее сообщение (с меню)
+    await callback.message.delete()
     
+    # Отправляем новое сообщение с фото и кнопкой "Назад"
     await callback.message.answer_photo(
         photo=PHOTO_BUY_PASS,
-        caption="🔴 https://www.donationalerts.com/r/slimehook 🔴"
+        caption="🔴 https://www.donationalerts.com/r/slimehook 🔴",
+        reply_markup=back_menu()
     )
+    await callback.answer()
 
 # Обработка нажатия на "Подать заявку" с фото
 @dp.callback_query(F.data == "submit_request")
 async def submit_request(callback: CallbackQuery):
-    await callback.answer()
+    # Удаляем предыдущее сообщение (с меню)
+    await callback.message.delete()
     
+    # Отправляем новое сообщение с фото и кнопкой "Назад"
     await callback.message.answer_photo(
         photo=PHOTO_SUBMIT_REQUEST,
-        caption=text4
+        caption=text4,
+        reply_markup=back_menu()
     )
+    await callback.answer()
+
+# Обработка нажатия на кнопку "Назад"
+@dp.callback_query(F.data == "back_to_main")
+async def back_to_main(callback: CallbackQuery):
+    # Удаляем текущее сообщение
+    await callback.message.delete()
+    
+    # Возвращаем главное меню
+    await callback.message.answer_photo(
+        photo=PHOTO_START,
+        caption="👋 Добро пожаловать!\nВыберите действие:",
+        reply_markup=main_menu()
+    )
+    await callback.answer()
 
 # ========== ЗАПУСК ==========
 async def main():
