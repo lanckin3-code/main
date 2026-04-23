@@ -11,12 +11,14 @@ BOT_TOKEN = "8771131700:AAEauoHEPmXfU0nxR5NaAl1gE3MXJxaIdWQ"
 PHOTO_START = "https://kappa.lol/v03Ziu"           # Фото для команды /start
 PHOTO_BUY_PASS = "https://kappa.lol/SZivBN"        # Фото для покупки проходки
 PHOTO_SUBMIT_REQUEST = "https://kappa.lol/CqVnrk"  # Фото для заявки
-PHOTO_BUILD = "https://kappa.lol/v03Ziu"      # 🆕 Фото для сборки (ЗАМЕНИТЕ!)
+PHOTO_BUILD = "https://kappa.lol/ваша_ссылка"      # Фото для сборки (ЗАМЕНИТЕ!)
+PHOTO_SUPPORT = "https://kappa.lol/ваша_ссылка"    # 🆕 Фото для тех-поддержки (ЗАМЕНИТЕ!)
 
 # Текст для сообщений
 TEXT_BUY_PASS = "🔴 https://www.donationalerts.com/r/slimehook 🔴"
 TEXT_SUBMIT_REQUEST = "🔴 https://docs.google.com/forms/d/e/1FAIpQLSdLCYNJj8xVunkZKKnMeJkKUG4k1nHYEo8J1l9qHoDX18JO3g/viewform?usp=dialog 🔴"
 TEXT_BUILD = "🔴 Сборка пока что дополняется 🔴"
+TEXT_SUPPORT = "🔴 https://t.me/SLIMEHOOK 🔴"  # 🆕 Текст для тех-поддержки
 
 # ========== ЛОГИРОВАНИЕ ==========
 logging.basicConfig(level=logging.INFO)
@@ -30,7 +32,8 @@ def main_menu():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="🎟 Купить проходку", callback_data="buy_pass")],
         [InlineKeyboardButton(text="📝 Подать заявку", callback_data="submit_request")],
-        [InlineKeyboardButton(text="📎 Сборка", callback_data="build")]  # 🆕 Новая кнопка
+        [InlineKeyboardButton(text="📎 Сборка", callback_data="build")],
+        [InlineKeyboardButton(text="📲 Тех-поддержка", callback_data="support")]  # 🆕 Новая кнопка
     ])
 
 def back_menu():
@@ -71,13 +74,24 @@ async def submit_request(callback: CallbackQuery):
     )
     await callback.answer()
 
-# 🆕 Сборка
+# Сборка
 @dp.callback_query(F.data == "build")
 async def build_info(callback: CallbackQuery):
     await callback.message.delete()
     await callback.message.answer_photo(
         photo=PHOTO_BUILD,
         caption=TEXT_BUILD,
+        reply_markup=back_menu()
+    )
+    await callback.answer()
+
+# 🆕 Тех-поддержка
+@dp.callback_query(F.data == "support")
+async def support_info(callback: CallbackQuery):
+    await callback.message.delete()
+    await callback.message.answer_photo(
+        photo=PHOTO_SUPPORT,
+        caption=TEXT_SUPPORT,
         reply_markup=back_menu()
     )
     await callback.answer()
