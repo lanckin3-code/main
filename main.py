@@ -17,7 +17,7 @@ PHOTO_SUPPORT = "https://kappa.lol/pVzeH4"    # 🆕 Фото для тех-по
 # Текст для сообщений
 TEXT_BUY_PASS = "🔴 https://www.donationalerts.com/r/slimehook 🔴"
 TEXT_SUBMIT_REQUEST = "🔴 https://docs.google.com/forms/d/e/1FAIpQLSdLCYNJj8xVunkZKKnMeJkKUG4k1nHYEo8J1l9qHoDX18JO3g/viewform?usp=dialog 🔴"
-TEXT_BUILD = "🔴 Сборка пока что дополняется 🔴"
+TEXT_BUILD = "🔴 https://workupload.com/file/eVWN7cH3m7R 🔴"
 TEXT_SUPPORT = "🔴 https://t.me/SLIMEHOOK 🔴"  # 🆕 Текст для тех-поддержки
 
 # ========== ЛОГИРОВАНИЕ ==========
