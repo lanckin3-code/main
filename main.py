@@ -11,14 +11,14 @@ BOT_TOKEN = "8771131700:AAEauoHEPmXfU0nxR5NaAl1gE3MXJxaIdWQ"
 PHOTO_START = "https://kappa.lol/v03Ziu"           # Фото для команды /start
 PHOTO_BUY_PASS = "https://kappa.lol/SZivBN"        # Фото для покупки проходки
 PHOTO_SUBMIT_REQUEST = "https://kappa.lol/CqVnrk"  # Фото для заявки
-PHOTO_BUILD = "https://kappa.lol/hv65Ql"      # Фото для сборки (ЗАМЕНИТЕ!)
-PHOTO_SUPPORT = "https://kappa.lol/pVzeH4"    # 🆕 Фото для тех-поддержки (ЗАМЕНИТЕ!)
+PHOTO_BUILD = "https://kappa.lol/hv65Ql"           # Фото для сборки
+PHOTO_SUPPORT = "https://kappa.lol/pVzeH4"         # Фото для тех-поддержки
 
 # Текст для сообщений
 TEXT_BUY_PASS = "🔴 https://www.donationalerts.com/r/slimehook 🔴"
 TEXT_SUBMIT_REQUEST = "🔴 https://docs.google.com/forms/d/e/1FAIpQLSdLCYNJj8xVunkZKKnMeJkKUG4k1nHYEo8J1l9qHoDX18JO3g/viewform?usp=dialog 🔴"
-TEXT_BUILD = "🔴 https://workupload.com/file/eVWN7cH3m7R 🔴"
-TEXT_SUPPORT = "🔴 https://t.me/SLIMEHOOK 🔴"  # 🆕 Текст для тех-поддержки
+TEXT_BUILD = "🔴 https://workupload.com/file/eVWN7cH3m7R 🔴\n🔴 Зеркало - https://drive.google.com/file/d/1OPbJKM47RcvVt1InJj1FX81yz0HJKhz1/view?usp=sharing 🔴"  # 📝 Добавлена вторая строка
+TEXT_SUPPORT = "🔴 https://t.me/SLIMEHOOK 🔴"
 
 # ========== ЛОГИРОВАНИЕ ==========
 logging.basicConfig(level=logging.INFO)
@@ -33,7 +33,7 @@ def main_menu():
         [InlineKeyboardButton(text="🎟 Купить проходку", callback_data="buy_pass")],
         [InlineKeyboardButton(text="📝 Подать заявку", callback_data="submit_request")],
         [InlineKeyboardButton(text="📎 Сборка", callback_data="build")],
-        [InlineKeyboardButton(text="📲 Тех-поддержка", callback_data="support")]  # 🆕 Новая кнопка
+        [InlineKeyboardButton(text="📲 Тех-поддержка", callback_data="support")]
     ])
 
 def back_menu():
@@ -85,7 +85,7 @@ async def build_info(callback: CallbackQuery):
     )
     await callback.answer()
 
-# 🆕 Тех-поддержка
+# Тех-поддержка
 @dp.callback_query(F.data == "support")
 async def support_info(callback: CallbackQuery):
     await callback.message.delete()
