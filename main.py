@@ -7,7 +7,7 @@ from aiogram.filters import Command
 # ========== НАСТРОЙКИ ==========
 BOT_TOKEN = "8771131700:AAEauoHEPmXfU0nxR5NaAl1gE3MXJxaIdWQ"
 
-# ССЫЛКИ НА ФОТО (ЗАМЕНИТЕ НА СВОИ)
+# ССЫЛКИ НА ФОТО
 PHOTO_START = "https://kappa.lol/v03Ziu"           # Фото для команды /start
 PHOTO_BUY_PASS = "https://kappa.lol/SZivBN"        # Фото для покупки проходки
 PHOTO_SUBMIT_REQUEST = "https://kappa.lol/CqVnrk"  # Фото для заявки
@@ -17,7 +17,8 @@ PHOTO_SUPPORT = "https://kappa.lol/pVzeH4"         # Фото для тех-по
 # Текст для сообщений
 TEXT_BUY_PASS = "🔴 https://www.donationalerts.com/r/slimehook 🔴"
 TEXT_SUBMIT_REQUEST = "🔴 https://docs.google.com/forms/d/e/1FAIpQLSdLCYNJj8xVunkZKKnMeJkKUG4k1nHYEo8J1l9qHoDX18JO3g/viewform?usp=dialog 🔴"
-TEXT_BUILD = "🔴 https://workupload.com/file/eVWN7cH3m7R 🔴 \n 🔴 Зеркало - https://drive.google.com/file/d/1OPbJKM47RcvVt1InJj1FX81yz0HJKhz1/view?usp=sharing 🔴"  # 📝 Добавлена вторая строка
+TEXT_BUILD_MAIN = "🔴 https://workupload.com/file/eVWN7cH3m7R 🔴"
+TEXT_BUILD_MIRROR = "🔴 https://drive.google.com/file/d/1OPbJKM47RcvVt1InJj1FX81yz0HJKhz1/view?usp=sharing 🔴"
 TEXT_SUPPORT = "🔴 https://t.me/SLIMEHOOK 🔴"
 
 # ========== ЛОГИРОВАНИЕ ==========
@@ -41,9 +42,17 @@ def back_menu():
         [InlineKeyboardButton(text="◀ Назад в меню", callback_data="back_to_main")]
     ])
 
+def build_menu():
+    """Меню выбора внутри раздела Сборка"""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="📎 Основная ссылка", callback_data="build_main")],
+        [InlineKeyboardButton(text="🪞 Зеркало", callback_data="build_mirror")],
+        [InlineKeyboardButton(text="◀ Назад в меню", callback_data="back_to_main")]
+    ])
+
 # ========== ОБРАБОТЧИКИ ==========
 
-# Старт с фото
+# Старт
 @dp.message(Command("start"))
 async def cmd_start(message: Message):
     await message.answer_photo(
@@ -74,13 +83,35 @@ async def submit_request(callback: CallbackQuery):
     )
     await callback.answer()
 
-# Сборка
+# Сборка - показываем меню выбора
 @dp.callback_query(F.data == "build")
 async def build_info(callback: CallbackQuery):
     await callback.message.delete()
     await callback.message.answer_photo(
         photo=PHOTO_BUILD,
-        caption=TEXT_BUILD,
+        caption="📦 Выберите вариант скачивания:",
+        reply_markup=build_menu()
+    )
+    await callback.answer()
+
+# Основная ссылка сборки
+@dp.callback_query(F.data == "build_main")
+async def build_main_link(callback: CallbackQuery):
+    await callback.message.delete()
+    await callback.message.answer_photo(
+        photo=PHOTO_BUILD,
+        caption=TEXT_BUILD_MAIN,
+        reply_markup=back_menu()
+    )
+    await callback.answer()
+
+# Зеркало сборки
+@dp.callback_query(F.data == "build_mirror")
+async def build_mirror_link(callback: CallbackQuery):
+    await callback.message.delete()
+    await callback.message.answer_photo(
+        photo=PHOTO_BUILD,
+        caption=TEXT_BUILD_MIRROR,
         reply_markup=back_menu()
     )
     await callback.answer()
